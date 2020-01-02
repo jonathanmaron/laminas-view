@@ -24,3 +24,25 @@ Browse the documentation online at https://docs.laminas.dev/laminas-view/
 * [Issues](https://github.com/laminas/laminas-view/issues/)
 * [Chat](https://laminas.dev/chat/)
 * [Forum](https://discourse.laminas.dev/)
+
+## Forked
+
+On January 02, 2020, Laminas\View was forked.
+
+To vastly improve performance in a very large Navigation tree, the `accept()` call now always returns `true` (li 315):
+
+    public function accept(AbstractPage $page, $recursive = true)
+
+    vendor/zendframework/zend-view/src/Helper/Navigation/AbstractHelper.php
+
+This reduced the lookup time in the Navigation tree from:
+
+    0.51467514038086 s, 3.1678 s
+    
+to:
+
+    0.049877882003784 s, 0.5161 s
+
+The first number is the time to for *one call* to the Navigation component, the second the *page execution* time (page contained several calls to Navigation component).
+
+This only works, since we are not using the Visible flag nor the ACL functionality.

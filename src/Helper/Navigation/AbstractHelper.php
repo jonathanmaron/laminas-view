@@ -195,7 +195,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         /** @var \Laminas\Navigation\Page\AbstractPage $page */
         foreach ($iterator as $page) {
             $currDepth = $iterator->getDepth();
-            if ($currDepth < $minDepth || ! $this->accept($page)) {
+            // if ($currDepth < $minDepth || ! $this->accept($page)) {
+            if ($currDepth < $minDepth) {
                 // page is not accepted
                 continue;
             }
